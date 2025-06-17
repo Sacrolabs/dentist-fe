@@ -1,41 +1,47 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Phone, ShieldCheck, CalendarPlus } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { Label } from "@/components/ui/label"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Phone, ShieldCheck, CalendarPlus } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Label } from '@/components/ui/label';
 
 export default function Hero() {
-  const [name, setName] = useState("")
-  const [phone, setPhone] = useState("")
-  const [service, setService] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [service, setService] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
     setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      setName("")
-      setPhone("")
-      setService("")
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setName('');
+      setPhone('');
+      setService('');
 
       // Reset success message after 5 seconds
       setTimeout(() => {
-        setIsSubmitted(false)
-      }, 5000)
-    }, 1000)
-  }
+        setIsSubmitted(false);
+      }, 5000);
+    }, 1000);
+  };
 
   return (
     <section className="relative w-full min-h-[90vh] flex items-center justify-center bg-secondary overflow-hidden">
@@ -58,14 +64,21 @@ export default function Hero() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="text-primary">Northcote Family Dentist</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-6">Affordable, Ethical, and Accessible Dentistry</p>
+            <p className="text-xl md:text-2xl mb-6">
+              Affordable, Ethical, and Accessible Dentistry
+            </p>
             <p className="text-lg mb-8 max-w-lg lg:max-w-xl mx-auto lg:mx-0">
-              At Northcote Family Dentist, our mission is simple: To make high-quality dentistry affordable, ethical,
-              and accessible for every family in the Northcote and Northshore community.
+              At Northcote Family Dentist, our mission is simple: To make
+              high-quality dentistry affordable, ethical, and accessible for
+              every family in the Northcote and Northshore community.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-              <Button asChild size="lg" className="hero-cta bg-primary hover:bg-primary/90 btn-texture text-white">
+              <Button
+                asChild
+                size="lg"
+                className="hero-cta bg-primary hover:bg-primary/90 btn-texture text-white"
+              >
                 <Link
                   href="https://booking.au.hsone.app/soe/new/Sunnynook%20Dentist?pid=NZSIN01"
                   target="_blank"
@@ -77,12 +90,7 @@ export default function Hero() {
                 </Link>
               </Button>
 
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-white hover:bg-white hover:text-secondary text-black"
-              >
+              <Button asChild variant="outline" size="lg">
                 <a href="tel:094492006" className="flex items-center gap-2">
                   <Phone size={18} />
                   Call Today
@@ -105,11 +113,16 @@ export default function Hero() {
 
           {/* Appointment Form */}
           <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg max-w-md mx-auto lg:ml-auto">
-            <h2 className="text-2xl font-bold text-secondary mb-6 text-center">Book Your Visit</h2>
+            <h2 className="text-2xl font-bold text-secondary mb-6 text-center">
+              Book Your Visit
+            </h2>
 
             {isSubmitted ? (
               <div className="bg-green-50 border border-green-200 text-green-800 rounded-md p-4 mb-4 text-center">
-                <p>Thank you! We'll contact you shortly to confirm your appointment.</p>
+                <p>
+                  Thank you! We'll contact you shortly to confirm your
+                  appointment.
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -148,7 +161,10 @@ export default function Hero() {
                     Service
                   </Label>
                   <Select value={service} onValueChange={setService} required>
-                    <SelectTrigger id="service" className="form-input border-gray-300 text-secondary">
+                    <SelectTrigger
+                      id="service"
+                      className="form-input border-gray-300 text-secondary"
+                    >
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
                     <SelectContent>
@@ -157,7 +173,9 @@ export default function Hero() {
                       <SelectItem value="whitening">Teeth Whitening</SelectItem>
                       <SelectItem value="invisalign">Invisalign</SelectItem>
                       <SelectItem value="implants">Dental Implants</SelectItem>
-                      <SelectItem value="emergency">Dental Emergency</SelectItem>
+                      <SelectItem value="emergency">
+                        Dental Emergency
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -167,7 +185,7 @@ export default function Hero() {
                   className="w-full hero-cta bg-primary hover:bg-primary/90 btn-texture text-white"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Request Appointment"}
+                  {isSubmitting ? 'Submitting...' : 'Request Appointment'}
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center mt-4">
@@ -179,5 +197,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
