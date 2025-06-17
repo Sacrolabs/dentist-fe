@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 35 24% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 14% 15%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 89%;
+    --muted-foreground: 0 0% 38%;
+    --accent: 0 0% 89%;
+    --accent-foreground: 217 14% 15%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 35 24% 59%;
+    --radius: 0.5rem;
+    --highlight: 213 100% 33%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+/* Fixed Header Styling */
+.fixed-header {
+  height: 70px;
+  transition: all 0.3s ease;
+}
+
+.fixed-header.scrolled {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo sizing */
+.header-logo {
+  min-width: 180px;
+}
+
+.footer-logo {
+  min-width: 150px;
+}
+
+/* Enhanced button hover effects with proper text color */
+.btn-primary {
+  @apply bg-primary text-white transition-all duration-300 ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #a58a67;
+  transform: scale(1.05);
+  color: white !important;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white transition-all duration-300 ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: #2a303b;
+  color: white !important;
+}
+
+.btn-secondary:hover .arrow-icon {
+  @apply opacity-100 translate-x-1;
+}
+
+.arrow-icon {
+  @apply opacity-0 transition-all duration-300 ease-in-out;
+}
+
+.btn-text:hover {
+  @apply underline;
+}
+
+/* Enhanced service card hover effects */
+.service-card {
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Team card overlay effect with name underline animation */
+.team-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.team-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px;
+}
+
+.team-card:hover .team-overlay {
+  opacity: 1;
+}
+
+.team-photo {
+  transition: transform 0.3s ease-in-out;
+}
+
+.team-card:hover .team-photo {
+  transform: scale(1.05);
+}
+
+.meet-text {
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.meet-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #b69974;
+  transition: width 300ms ease;
+}
+
+.team-card:hover .meet-text::after {
+  width: 100%;
+}
+
+.team-card:hover .meet-text {
+  color: #b69974;
+}
+
+/* Form input focus styling */
+.form-input:focus {
+  border-color: #b69974;
+  box-shadow: 0 0 0 3px rgba(182, 153, 116, 0.1);
+}
+
+/* Footer link hover styling */
+.footer-link:hover {
+  color: #b69974;
+}
+
+/* Custom button texture with proper text color */
+.btn-texture {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23b69974' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  color: white !important;
+}
+
+/* Focus states for accessibility */
+.focus-visible:focus {
+  @apply outline-none ring-2 ring-primary ring-offset-2;
+}
+
+/* Underline animation for text buttons */
+.btn-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-text::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease-in-out;
+}
+
+.btn-text:hover::after {
+  width: 100%;
+}
+
+/* Enhanced button hover effects with proper text color */
+.hero-cta {
+  transition: all 300ms ease;
+  color: white !important;
+}
+
+.hero-cta:hover {
+  background-color: #a58a67;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(182, 153, 116, 0.3);
+  color: white !important;
+}
+
+/* Emergency hotline styling */
+.emergency-hotline {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  border-radius: 12px;
+  padding: 24px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2);
+}
+
+/* Timeline styling */
+.timeline-item {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 30px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background-color: #b69974;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px #b69974;
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 24px;
+  width: 2px;
+  height: calc(100% + 6px);
+  background-color: #e5e7eb;
+}
+
+.timeline-item:last-child::after {
+  display: none;
+}
+
+/* Ensure all button text is visible */
+button {
+  color: inherit;
+}
+
+button.btn-primary,
+.btn-primary {
+  color: white !important;
+}
+
+button.btn-secondary,
+.btn-secondary {
+  color: white !important;
+}
+
+/* Fix for white background buttons */
+.bg-white button,
+.bg-white .btn-primary {
+  color: white !important;
+}
+
+/* Ensure form elements have proper text color */
+input,
+select,
+textarea {
+  color: #1f242c !important;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important;
+}
