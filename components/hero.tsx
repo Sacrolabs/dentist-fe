@@ -24,23 +24,30 @@ export default function Hero() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
-    setTimeout(() => {
+    setIsSubmitted(false);
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, service }),
+      });
+      if (response.ok) {
+        setIsSubmitted(true);
+        setName('');
+        setPhone('');
+        setService('');
+      } else {
+        alert('Failed to send appointment request. Please try again later.');
+      }
+    } catch (error) {
+      alert('Failed to send appointment request. Please try again later.');
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      setName('');
-      setPhone('');
-      setService('');
-
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 1000);
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }
   };
 
   return (
@@ -103,7 +110,7 @@ export default function Hero() {
                 size="lg"
                 className="border-white hover:bg-white hover:text-secondary text-black"
               >
-                <Link href="/insurance" className="flex items-center gap-2">
+                <Link href="/contact" className="flex items-center gap-2">
                   <ShieldCheck size={18} />
                   Insurance Info
                 </Link>

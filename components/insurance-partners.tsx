@@ -30,7 +30,7 @@ export default function InsurancePartners() {
 
         <div className="text-center">
           <Button asChild className="bg-primary hover:bg-primary/90 btn-texture">
-            <Link href="/insurance" className="flex items-center gap-2">
+            <Link href="/contact" className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4" />
               <span>Verify Your Coverage</span>
             </Link>

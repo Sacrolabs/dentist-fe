@@ -20,21 +20,29 @@ export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate form submission
-    setTimeout(() => {
+    setIsSubmitted(false)
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      if (response.ok) {
+        setIsSubmitted(true)
+        setFormData({ name: "", email: "", service: "", message: "" })
+      } else {
+        // Optionally handle error
+        alert('Failed to send message. Please try again later.')
+      }
+    } catch (error) {
+      alert('Failed to send message. Please try again later.')
+    } finally {
       setIsSubmitting(false)
-      setIsSubmitted(true)
-      setFormData({ name: "", email: "", service: "", message: "" })
-
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-      }, 5000)
-    }, 1000)
+      setTimeout(() => setIsSubmitted(false), 5000)
+    }
   }
 
   return (
