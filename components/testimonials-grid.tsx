@@ -80,7 +80,7 @@ export default function TestimonialsGrid() {
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  activeFilter === filter ? "bg-primary text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  activeFilter === filter ? "bg-primary text-white" : "bg-gray-400 text-gray-600 hover:bg-gray-500"
                 }`}
               >
                 {filter}

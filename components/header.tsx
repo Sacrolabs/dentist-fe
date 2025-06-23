@@ -6,10 +6,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Phone, CalendarPlus } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   // Handle scroll event
   useEffect(() => {
@@ -21,7 +24,7 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={cn("fixed top-0 left-0 right-0 z-50 fixed-header", isScrolled && "scrolled")}>
+    <header className={cn("fixed top-0 left-0 right-0 z-50 fixed-header box-shadow-lg pb-2", isScrolled && "scrolled")}>
       <div className="container mx-auto px-4 h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center header-logo">
@@ -29,12 +32,12 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-6 p-2">
           <Link
             href="/"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             Home
@@ -43,7 +46,7 @@ export default function Header() {
             href="/services"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             Services
@@ -52,7 +55,7 @@ export default function Header() {
             href="/about"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             About
@@ -61,7 +64,7 @@ export default function Header() {
             href="/team"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             Team
@@ -70,7 +73,7 @@ export default function Header() {
             href="/testimonials"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             Testimonials
@@ -79,7 +82,7 @@ export default function Header() {
             href="/contact"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             Contact
@@ -92,7 +95,7 @@ export default function Header() {
             href="tel:094492006"
             className={cn(
               "hidden sm:flex items-center gap-2 text-sm font-medium transition-colors",
-              isScrolled ? "text-secondary" : "text-white",
+              isScrolled || !isHomePage ? "text-secondary" : "text-white",
             )}
           >
             <Phone size={16} />
@@ -113,9 +116,9 @@ export default function Header() {
           {/* Mobile menu toggle */}
           <button className="ml-2 md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? (
-              <X className={isScrolled ? "text-secondary" : "text-white"} />
+              <X className={isScrolled || !isHomePage ? "text-secondary" : "text-white"} />
             ) : (
-              <Menu className={isScrolled ? "text-secondary" : "text-white"} />
+              <Menu className={isScrolled || !isHomePage ? "text-secondary" : "text-white"} />
             )}
           </button>
         </div>

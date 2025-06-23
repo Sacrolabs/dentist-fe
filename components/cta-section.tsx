@@ -32,7 +32,7 @@ export default function CtaSection() {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="/register">Register Your Interest</Link>
+              <Link href="/contact">Register Your Interest</Link>
             </Button>
           </div>
         </div>

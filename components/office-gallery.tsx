@@ -3,7 +3,7 @@ import Image from "next/image"
 export default function OfficeGallery() {
   const galleryImages = [
     {
-      src: "/images/clinic-reception.jpg",
+      src: "/images/dental-office-exterior.jpg",
       alt: "Modern dental reception area with comfortable seating and welcoming atmosphere",
     },
     {

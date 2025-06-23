@@ -25,7 +25,7 @@ export default function ShareExperience() {
               </Link>
             </Button>
 
-            <Button asChild variant="outline" className="btn-secondary">
+            <Button asChild variant="outline" className="btn-secondary hover:bg-secondary/70">
               <Link href="/contact" className="flex items-center gap-2">
                 Send Us Feedback
                 <span className="arrow-icon">→</span>

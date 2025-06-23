@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import TestimonialsHero from "@/components/testimonials-hero"
 import TestimonialsGrid from "@/components/testimonials-grid"
-import VideoTestimonials from "@/components/video-testimonials"
+// import VideoTestimonials from "@/components/video-testimonials"
 import ShareExperience from "@/components/share-experience"
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function TestimonialsPage() {
     <main className="pt-16">
       <TestimonialsHero />
       <TestimonialsGrid />
-      <VideoTestimonials />
+      {/* <VideoTestimonials /> */}
       <ShareExperience />
     </main>
   )

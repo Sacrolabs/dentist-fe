@@ -27,10 +27,10 @@ export default function DentistSection() {
           <div className="order-1 md:order-2 flex justify-center">
             <div className="relative w-full max-w-md aspect-square rounded-xl overflow-hidden shadow-lg">
               <Image
-                src="/images/trusted-dental-team.png"
+                src="/images/team/dental-team.jpg"
                 alt="Trusted dental team providing professional patient care in modern clinical setting"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
           </div>

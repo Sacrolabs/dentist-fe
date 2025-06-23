@@ -144,7 +144,7 @@ export default function TeamGrid() {
                       alt={`${dentist.name} - ${dentist.position}`}
                       width={400}
                       height={400}
-                      className="team-photo w-full h-full object-cover"
+                      className="team-photo w-full h-full object-cover object-top"
                     />
                   </div>
                   <div className="team-overlay">
@@ -198,7 +198,7 @@ export default function TeamGrid() {
                       alt={`${member.name} - ${member.position}`}
                       width={400}
                       height={400}
-                      className="team-photo w-full h-full object-cover"
+                      className="team-photo w-full h-full object-cover object-top"
                     />
                   </div>
                   <div className="team-overlay">
