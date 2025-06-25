@@ -27,8 +27,8 @@ export default function Header() {
     <header className={cn("fixed top-0 left-0 right-0 z-50 fixed-header box-shadow-lg pb-2", isScrolled && "scrolled")}>
       <div className="container mx-auto px-4 h-full flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center header-logo">
-          <Image src="/logo.png" alt="Northcote Family Dentist" width={120} height={30} className="h-auto" />
+        <Link href="/" className="flex items-center header-logo py-2">
+          <Image src="/logo.png" alt="Northcote Family Dentist" width={90} height={20} className="h-auto" />
         </Link>
 
         {/* Desktop Navigation */}
