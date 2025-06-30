@@ -1,49 +1,72 @@
-'use client';
+"use client";
 
-import type React from 'react';
+import type React from "react";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Phone, ShieldCheck, CalendarPlus } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Label } from '@/components/ui/label';
+} from "@/components/ui/select";
+import { Phone, ShieldCheck, CalendarPlus } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Label } from "@/components/ui/label";
 
 export default function Hero() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [service, setService] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [service, setService] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setIsSubmitted(false);
+
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, service }),
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          service,
+          message: `Appointment request for ${service} service`,
+        }),
       });
-      if (response.ok) {
-        setIsSubmitted(true);
-        setName('');
-        setPhone('');
-        setService('');
-      } else {
-        alert('Failed to send appointment request. Please try again later.');
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send appointment request");
       }
+
+      // Success case
+      setIsSubmitted(true);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setService("");
+
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
     } catch (error) {
-      alert('Failed to send appointment request. Please try again later.');
+      console.error("Error submitting form:", error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to send appointment request. Please try again later."
+      );
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setIsSubmitted(false), 5000);
@@ -134,18 +157,35 @@ export default function Hero() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-secondary">
-                    Full Name
-                  </Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="form-input border-gray-300 text-secondary"
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-secondary">
+                      Full Name *
+                    </Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Your name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      className="form-input border-gray-300 text-secondary"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-secondary">
+                      Email *
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your.email@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="form-input border-gray-300 text-secondary"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -172,15 +212,30 @@ export default function Hero() {
                       id="service"
                       className="form-input border-gray-300 text-secondary"
                     >
-                      <SelectValue placeholder="Select a service" />
+                      <SelectValue placeholder="Select a service (optional)">
+                        {service && (
+                          <span className="text-foreground">
+                            {service.charAt(0).toUpperCase() +
+                              service.slice(1).replace(/-/g, " ")}
+                          </span>
+                        )}
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="check-up">Routine Check-up</SelectItem>
-                      <SelectItem value="cleaning">Teeth Cleaning</SelectItem>
-                      <SelectItem value="whitening">Teeth Whitening</SelectItem>
-                      <SelectItem value="invisalign">Invisalign</SelectItem>
-                      <SelectItem value="implants">Dental Implants</SelectItem>
-                      <SelectItem value="emergency">
+                      <SelectItem value="Routine Check-up">
+                        Routine Check-up
+                      </SelectItem>
+                      <SelectItem value="Teeth Cleaning">
+                        Teeth Cleaning
+                      </SelectItem>
+                      <SelectItem value="Teeth Whitening">
+                        Teeth Whitening
+                      </SelectItem>
+                      <SelectItem value="Invisalign">Invisalign</SelectItem>
+                      <SelectItem value="Dental Implants">
+                        Dental Implants
+                      </SelectItem>
+                      <SelectItem value="Dental Emergency">
                         Dental Emergency
                       </SelectItem>
                     </SelectContent>
@@ -192,7 +247,7 @@ export default function Hero() {
                   className="w-full hero-cta bg-primary hover:bg-primary/90 btn-texture text-white"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Request Appointment'}
+                  {isSubmitting ? "Submitting..." : "Request Appointment"}
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center mt-4">

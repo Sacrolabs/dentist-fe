@@ -14,6 +14,7 @@ export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     service: "",
     message: "",
   })
@@ -24,24 +25,33 @@ export default function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
     setIsSubmitted(false)
+    
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      if (response.ok) {
-        setIsSubmitted(true)
-        setFormData({ name: "", email: "", service: "", message: "" })
-      } else {
-        // Optionally handle error
-        alert('Failed to send message. Please try again later.')
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message')
       }
+      
+      // Success case
+      setIsSubmitted(true)
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" })
+      
     } catch (error) {
-      alert('Failed to send message. Please try again later.')
+      console.error('Error submitting form:', error)
+      alert(error instanceof Error ? error.message : 'Failed to send message. Please try again later.')
     } finally {
       setIsSubmitting(false)
-      setTimeout(() => setIsSubmitted(false), 5000)
+      // Clear success message after 5 seconds
+      if (isSubmitted) {
+        setTimeout(() => setIsSubmitted(false), 5000)
+      }
     }
   }
 
@@ -86,27 +96,46 @@ export default function ContactForm() {
                       className="form-input"
                     />
                   </div>
-                </div>
 
-                <div className="space-y-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="Your phone number"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="form-input"
+                    />
+                  </div>
+
+
+                  <div className="space-y-2">
                   <Label htmlFor="service">Service Interest</Label>
                   <Select
                     value={formData.service}
                     onValueChange={(value) => setFormData({ ...formData, service: value })}
                   >
                     <SelectTrigger id="service" className="form-input">
-                      <SelectValue placeholder="Select a service (optional)" />
+                      <SelectValue placeholder="Select a service (optional)">
+                        {formData.service && (
+                          <span className="text-foreground">
+                            {formData.service.charAt(0).toUpperCase() + formData.service.slice(1).replace(/-/g, ' ')}
+                          </span>
+                        )}
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="check-up">Routine Check-up</SelectItem>
-                      <SelectItem value="cleaning">Teeth Cleaning</SelectItem>
-                      <SelectItem value="whitening">Teeth Whitening</SelectItem>
-                      <SelectItem value="invisalign">Invisalign</SelectItem>
-                      <SelectItem value="implants">Dental Implants</SelectItem>
-                      <SelectItem value="emergency">Dental Emergency</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Routine Check-up">Routine Check-up</SelectItem>
+                      <SelectItem value="Teeth Cleaning">Teeth Cleaning</SelectItem>
+                      <SelectItem value="Teeth Whitening">Teeth Whitening</SelectItem>
+                      <SelectItem value="Invisalign">Invisalign</SelectItem>
+                      <SelectItem value="Dental Implants">Dental Implants</SelectItem>
+                      <SelectItem value="Dental Emergency">Dental Emergency</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>  
                 </div>
 
                 <div className="space-y-2">
