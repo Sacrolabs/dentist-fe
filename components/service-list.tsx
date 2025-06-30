@@ -9,7 +9,7 @@ export default function ServiceList() {
       id: "checkups",
       title: "Routine Oral Exams & Check-Ups",
       shortDescription: "Regular check-ups to catch small problems early before they turn into serious issues.",
-      image: "/images/dental-examination.jpg",
+      image: "/images/oral_checkup.webp",
       benefits: [
         "Early Detection & Prevention",
         "Comprehensive Oral Health Monitoring",
