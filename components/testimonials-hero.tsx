@@ -24,7 +24,7 @@ export default function TestimonialsHero() {
             <Star key={star} className="h-6 w-6 fill-primary text-primary" />
           ))}
         </div>
-        <p className="text-gray-200 max-w-3xl mx-auto text-lg">Over 200 five-star reviews from our happy patients</p>
+        <p className="text-gray-200 max-w-3xl mx-auto text-lg">Over 175 five-star reviews from our happy patients</p>
       </div>
     </section>
   )

@@ -49,7 +49,7 @@ export default function OurStory() {
                     <Award className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-secondary">200+ Reviews</h4>
+                    <h4 className="font-semibold text-secondary">175+ Reviews</h4>
                     <p className="text-gray-600 text-sm">5-star patient satisfaction</p>
                   </div>
                 </div>

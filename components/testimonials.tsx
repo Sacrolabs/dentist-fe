@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { Star, ArrowLeft, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import Image from "next/image"
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -11,23 +10,23 @@ export default function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      avatar: "/images/patient-avatar-1.jpg",
-      text: "After being afraid of dentists for years, Northcote Family Dentist has changed my view completely. Their gentle approach and clear explanations made me feel at ease. I actually look forward to my check-ups now!",
+      name: "Devank Shah",
+      avatar: "",
+      text: "I recently had a root canal done and was extremely impressed with the entire experience. Dr. Lakshay did an outstanding job—he was precise, professional, and made me feel completely at ease throughout the procedure. The whole team was friendly and efficient, and everything was spot on from start to finish. Highly recommend!",
       stars: 5,
     },
     {
       id: 2,
-      name: "Michael Taylor",
-      avatar: "/images/patient-avatar-2.jpg",
-      text: "I had a dental emergency on the weekend and they fit me in right away. The care was excellent, prices were fair, and they solved my problem quickly. Highly recommend!",
+      name: "Jenn Sus",
+      avatar: "",
+      text: "Had all 4 wisdom teeth removed in one go. Was surprised I didn’t need to be put to sleep as that is the feedback I had got from other dentists, but incredibly I didn’t feel a thing. Recovery was smooth and service was outstanding from Dr. Lakshay and the team. Price was also reasonable compared to multiple quotes I had before. Highly recommend.",
       stars: 5,
     },
     {
       id: 3,
       name: "Emma Williams",
-      avatar: "/images/patient-avatar-3.jpg",
-      text: "My kids used to dread going to the dentist, but they actually enjoy their visits here! The staff are amazing with children and make the experience fun and stress-free.",
+      avatar: "",
+      text: "Was feeling extremely nervous to have all 4 wisdom teeth extracted, my mind was quickly put to ease by Dr. Lakshay Kumar.\n Great communication and care, I'm pleasantly surprised how fast and painless the whole process was.\n Most affordable teeth extraction on the shore.\n Highly recommend",
       stars: 5,
     },
   ]
@@ -59,7 +58,7 @@ export default function Testimonials() {
               <Star key={star} className="h-5 w-5 fill-primary text-primary" />
             ))}
           </div>
-          <p className="text-primary font-medium">200+ 5-Star Reviews</p>
+          <p className="text-primary font-medium">175+ 5-Star Reviews</p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
@@ -72,7 +71,7 @@ export default function Testimonials() {
                 <div key={testimonial.id} className="min-w-full px-4">
                   <div className="bg-gray-50 p-6 md:p-8 rounded-lg">
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 rounded-full overflow-hidden mb-4">
+                      {/* <div className="w-16 h-16 rounded-full overflow-hidden mb-4">
                         <Image
                           src={testimonial.avatar || "/placeholder.svg"}
                           alt={`${testimonial.name} - Happy dental patient testimonial`}
@@ -80,7 +79,7 @@ export default function Testimonials() {
                           height={64}
                           className="object-cover"
                         />
-                      </div>
+                      </div> */}
 
                       <div className="flex items-center mb-3">
                         {[...Array(testimonial.stars)].map((_, i) => (
