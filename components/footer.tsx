@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail, Clock, Facebook, Instagram } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-secondary text-white">
+    <footer className="bg-white text-secondary/80">
       <div className="container px-4 md:px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Contact Information */}
@@ -161,10 +161,10 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-300">
+            <p className="text-sm text-gray-500">
               &copy; {new Date().getFullYear()} Northcote Family Dentist. All rights reserved.
             </p>
-            <div className="flex gap-4 text-sm text-gray-300">
+            <div className="flex gap-4 text-sm text-gray-500">
               <Link href="/privacy" className="footer-link hover:text-primary transition-colors">
                 Privacy Policy
               </Link>
