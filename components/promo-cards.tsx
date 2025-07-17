@@ -57,7 +57,7 @@ export default function PromoCards() {
             >
               <div
                 className={`${bg} text-white flex items-center justify-between p-6 md:p-8 transition-all duration-200 hover:-translate-y-2 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:shadow-2xl ${
-                  idx === 1 ? "md:scale-110 md:p-12 md:z-10" : ""
+                  idx === 1 ? "md:scale-110 md:p-14 md:z-10" : ""
                 } group-focus-visible:ring-4 group-focus-visible:ring-primary/40`}
                 tabIndex={0}
                 role="link"
