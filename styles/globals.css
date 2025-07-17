@@ -10,6 +10,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+  }
 }
 
 @layer base {

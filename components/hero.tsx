@@ -12,10 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Phone, ShieldCheck, CalendarPlus } from "lucide-react";
+import { Phone, Calendar, CalendarPlus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
+import { BOOK_APPOINTMENT_URL } from "@/lib/utils";
 
 export default function Hero() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -110,7 +111,7 @@ export default function Hero() {
                 className="hero-cta bg-primary hover:bg-primary/90 btn-texture text-white"
               >
                 <Link
-                  href="https://booking.au.hsone.app/soe/new/Sunnynook%20Dentist?pid=NZSIN01"
+                  href={BOOK_APPOINTMENT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -133,9 +134,14 @@ export default function Hero() {
                 size="lg"
                 className="border-white hover:bg-white hover:text-secondary text-black"
               >
-                <Link href="/contact" className="flex items-center gap-2">
-                  <ShieldCheck size={18} />
-                  Insurance Info
+                <Link
+                  href={BOOK_APPOINTMENT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Calendar size={18} />
+                  Book Now
                 </Link>
               </Button>
             </div>

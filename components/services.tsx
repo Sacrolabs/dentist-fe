@@ -1,6 +1,7 @@
 import { Zap, Smile, Clock, Stethoscope } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 
 export default function Services() {
   const services = [
@@ -45,21 +46,24 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
-            <div
-              key={service.id}
-              className="service-card bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-200"
-            >
-              <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-secondary mb-2">{service.title}</h3>
-              <p className="text-gray-600 mb-4">{service.description}</p>
-              <Link href={service.link} className="text-primary hover:text-primary/80 text-sm font-medium">
-                Learn more →
-              </Link>
-            </div>
+            <Card key={service.id} className="service-card bg-white p-6 text-center group">
+              <CardHeader className="flex flex-col items-center space-y-0 p-0 pb-0">
+                <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4 transition-colors duration-300 group-hover:bg-white">
+                  {service.icon}
+                </div>
+                <CardTitle className="text-xl font-semibold mb-2">
+                  {service.title}
+                </CardTitle>
+                <CardDescription className="mb-4 group-hover:text-white">
+                  {service.description}
+                </CardDescription>
+                <Link href={service.link} className="text-sm font-medium">
+                  Learn more →
+                </Link>
+              </CardHeader>
+            </Card>
           ))}
         </div>
 
