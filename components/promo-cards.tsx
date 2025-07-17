@@ -56,18 +56,16 @@ export default function PromoCards() {
               className="group focus:outline-none"
             >
               <div
-                className={`${bg} text-white flex items-center justify-between p-6 md:p-8 transition-all duration-200 hover:-translate-y-2 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:shadow-2xl ${
-                  idx === 1 ? "md:scale-110 md:p-14 md:z-10" : ""
-                } group-focus-visible:ring-4 group-focus-visible:ring-primary/40`}
+                className={`${bg} text-white flex items-center justify-between p-6 md:p-8 transition-all duration-200 hover:-translate-y-2 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:shadow-2xl group-focus-visible:ring-4 group-focus-visible:ring-primary/40`}
                 tabIndex={0}
                 role="link"
                 aria-label={`Book appointment for promo: ${title}`}
               >
                 <div>
-                  <h3 className="font-semibold text-lg md:text-xl leading-snug">
+                  <h3 className="font-semibold text-lg md:text-sm leading-snug">
                     {title}
                   </h3>
-                  <p className="mt-2 text-sm opacity-80 uppercase tracking-wide">
+                  <p className="mt-2 text-xs opacity-80 uppercase tracking-wide md:text-xs">
                     {subtitle}
                   </p>
                 </div>
