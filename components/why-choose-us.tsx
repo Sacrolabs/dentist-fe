@@ -1,4 +1,5 @@
 import { BadgeCheck } from "lucide-react"
+import { Card } from "./ui/card"
 
 export default function WhyChooseUs() {
   const reasons = [
@@ -47,17 +48,24 @@ export default function WhyChooseUs() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {reasons.map((reason) => (
-            <div key={reason.id} className="p-6 border rounded-lg hover:shadow-lg transition-shadow bg-white">
+            <Card key={reason.id} className="p-6">
               <div className="flex items-start gap-4">
                 <div className="mt-1">
-                  <BadgeCheck size={24} className="text-primary" />
+                  <BadgeCheck
+                    size={24}
+                    className="text-primary group-hover:text-primary-foreground transition-colors duration-300"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-secondary mb-2">{reason.title}</h3>
-                  <p className="text-gray-600">{reason.description}</p>
+                  <h3 className="text-xl font-semibold text-secondary mb-2 group-hover:text-primary-foreground transition-colors duration-300">
+                    {reason.title}
+                  </h3>
+                  <p className="text-gray-600 group-hover:text-primary-foreground transition-colors duration-300">
+                    {reason.description}
+                  </p>
                 </div>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

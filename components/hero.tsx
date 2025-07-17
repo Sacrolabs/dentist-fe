@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Phone, ShieldCheck, CalendarPlus } from "lucide-react";
+import { Phone, Calendar, CalendarPlus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
@@ -133,9 +133,14 @@ export default function Hero() {
                 size="lg"
                 className="border-white hover:bg-white hover:text-secondary text-black"
               >
-                <Link href="/contact" className="flex items-center gap-2">
-                  <ShieldCheck size={18} />
-                  Insurance Info
+                <Link
+                  href="https://booking.au.hsone.app/soe/new/Sunnynook%20Dentist?pid=NZSIN01"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Calendar size={18} />
+                  Book Now
                 </Link>
               </Button>
             </div>

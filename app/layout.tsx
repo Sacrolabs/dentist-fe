@@ -11,7 +11,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Northcote Family Dentist",
   description: "Affordable, Ethical, and Accessible Dentistry in Northcote and Northshore communities",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
