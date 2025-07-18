@@ -5,12 +5,12 @@ export default function ContactHero() {
     <section className="relative w-full h-72 md:h-96 flex items-center justify-center bg-secondary overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/dental-consultation.jpg"
+          src="/images/dental-office-exterior.jpg"
           alt="Modern dental consultation room with comfortable seating and advanced equipment"
           fill
           className="object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 to-secondary/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-secondary/20"></div>
       </div>
 
       <div className="container relative z-10 px-4 md:px-6 text-center">

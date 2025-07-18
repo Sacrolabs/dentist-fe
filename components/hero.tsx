@@ -85,7 +85,7 @@ export default function Hero() {
           className="object-cover opacity-30"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 to-secondary/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-secondary/20"></div>
       </div>
 
       <div className="container relative z-10 px-4 md:px-6 pt-24 md:pt-32 pb-16">

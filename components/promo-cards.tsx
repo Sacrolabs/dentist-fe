@@ -22,7 +22,7 @@ const CARDS: Card[] = [
   {
     title: "$69 Full Exam with X-Ray",
     subtitle: "LIMITED TIME SPECIAL",
-    bg: "bg-[#00B0D8]",
+    bg: "bg-slate-400",
     Icon: ToothIcon,
   },
   {
@@ -37,7 +37,7 @@ const CARDS: Card[] = [
   {
     title: "$149 Exam & X-Rays + Scale & Polish",
     subtitle: "LIMITED TIME SPECIAL",
-    bg: "bg-[#F47F60]",
+    bg: "bg-secondary",
     Icon: SparkleIcon,
   },
 ];
