@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Phone, CalendarPlus } from "lucide-react"
+import { Menu, X, Phone, CalendarPlus, ChevronDown } from "lucide-react"
+import { services } from "@/lib/services-data"
 import { cn } from "@/lib/utils"
 
 export default function Header() {
@@ -29,15 +30,37 @@ export default function Header() {
           >
             Home
           </Link>
-          <Link
-            href="/services"
-            className={cn(
-              "text-sm font-medium hover:text-primary transition-colors",
-              "text-secondary",
-            )}
-          >
-            Services
-          </Link>
+          {/* Services Dropdown */}
+          <div className="relative group">
+            <Link
+              href="/services"
+              className={cn(
+                "inline-flex items-center gap-1 text-sm font-medium hover:text-primary transition-colors",
+                "text-secondary",
+              )}
+            >
+              Services
+              <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+            </Link>
+            {/* Dropdown panel */}
+            <div className="absolute left-0 top-full mt-2 w-56 bg-white shadow-lg rounded-md py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              {services.map((service) => (
+                <Link
+                  key={service.id}
+                  href={`/services/${service.id}`}
+                  className="block px-4 py-2 text-sm text-secondary hover:bg-gray-100 hover:text-primary"
+                >
+                  {service.title}
+                </Link>
+              ))}
+              <Link
+                href="/services"
+                className="block px-4 py-2 text-sm font-semibold text-primary border-t border-gray-200 hover:bg-gray-100"
+              >
+                View All Services
+              </Link>
+            </div>
+          </div>
           <Link
             href="/about"
             className={cn(
@@ -122,13 +145,25 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link
-              href="/services"
-              className="py-2 text-secondary hover:text-primary"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Services
-            </Link>
+            <details className="py-2">
+              <summary className="list-none text-secondary hover:text-primary cursor-pointer inline-flex items-center gap-1">
+                Services
+                <ChevronDown className="w-4 h-4 transition-transform duration-200" />
+              </summary>
+              <ul className="pl-4 mt-2 space-y-1">
+                {services.map((service) => (
+                  <li key={service.id}>
+                    <Link
+                      href={`/services/${service.id}`}
+                      className="text-sm text-secondary hover:text-primary"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
             <Link
               href="/about"
               className="py-2 text-secondary hover:text-primary"

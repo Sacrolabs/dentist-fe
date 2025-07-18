@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { services as servicesData } from "@/lib/services-data"
 
 export default function ServiceList() {
   const services = [
