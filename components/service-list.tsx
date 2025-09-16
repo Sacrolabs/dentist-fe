@@ -130,18 +130,24 @@ function ServiceFlipCard({ service }: { service: ServiceItem }) {
     >
       <div
         className={`relative h-full [perspective:1000px]`}
+        // iOS Safari needs the WebKit-prefixed perspective to properly render preserve-3d
+        style={{ WebkitPerspective: "1000px" }}
       >
         <div
-          className={`relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] ${flipped ? '[transform:rotateY(180deg)]' : ''}`}
+          className={`relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] ${flipped ? '[transform:rotateY(180deg)]' : ''} transform-gpu will-change-transform`}
+          // iOS Safari requires the WebKit-prefixed transform-style for proper backface handling
+          style={{ WebkitTransformStyle: "preserve-3d" }}
         >
           {/* Front */}
           <Card
-            className="absolute inset-0 !bg-white !text-foreground hover:!bg-white hover:!text-foreground hover:shadow-lg [backface-visibility:hidden] overflow-hidden"
+            className="absolute inset-0 !bg-white !text-foreground hover:!bg-white hover:!text-foreground hover:shadow-lg [backface-visibility:hidden] overflow-hidden transform-gpu"
             onClick={toggle}
             tabIndex={0}
             role="button"
             aria-label={`${service.title} details`}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle()}
+            // Ensure backface stays hidden on iOS Safari
+            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
           >
             {/* Background image */}
             <div className="absolute inset-0 rounded-lg overflow-hidden">
@@ -176,12 +182,14 @@ function ServiceFlipCard({ service }: { service: ServiceItem }) {
 
           {/* Back */}
           <Card
-            className="absolute inset-0 bg-primary text-primary-foreground [transform:rotateY(180deg)] [backface-visibility:hidden] overflow-hidden"
+            className="absolute inset-0 bg-primary text-primary-foreground [transform:rotateY(180deg)] [backface-visibility:hidden] overflow-hidden transform-gpu"
             onClick={toggle}
             tabIndex={0}
             role="button"
             aria-label={`${service.title} more details`}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle()}
+            // Ensure backface stays hidden on iOS Safari
+            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
           >
             {/* Background image with stronger blur and darker overlay for contrast */}
             <div className="absolute inset-0 rounded-lg overflow-hidden">

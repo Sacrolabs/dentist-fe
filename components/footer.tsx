@@ -2,6 +2,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram } from "lucide-react"
 
+// Compute once in UTC to minimize SSR/CSR differences
+const CURRENT_YEAR_UTC = new Date().getUTCFullYear()
+
 export default function Footer() {
   return (
     <footer className="bg-primary text-foreground">
@@ -162,7 +165,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-200">
-              &copy; {new Date().getFullYear()} Northcote Family Dentist. All rights reserved.
+              &copy; {CURRENT_YEAR_UTC} Northcote Family Dentist. All rights reserved.
             </p>
             <div className="flex gap-4 text-sm text-gray-200">
               <Link href="/privacy" className="footer-link hover:text-white transition-colors">
