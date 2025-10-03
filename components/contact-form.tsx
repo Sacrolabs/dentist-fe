@@ -170,7 +170,7 @@ export default function ContactForm() {
                 <div>
                   <h3 className="font-semibold text-secondary mb-1">Visit Us</h3>
                   <p className="text-gray-600">
-                  46 Lake Road, Northcote, 
+                  46c Lake Road, Northcote, 
                   <br/>
                   Auckland 0627, New Zealand
                   </p>
