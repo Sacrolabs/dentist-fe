@@ -20,22 +20,22 @@ interface Card {
 
 const CARDS: Card[] = [
   {
-    title: "$69 Full Exam with X-Ray",
+    // title: "$69 Full Exam with X-Ray",
     subtitle: "LIMITED TIME SPECIAL",
     bg: "bg-slate-400",
     Icon: ToothIcon,
   },
   {
-    title: "$999 Single Day Crown",
-    subtitle: (<>
-      <span className="line-through mr-2 font-bold">$1600</span>
-      <span className="font-bold">now only $999</span>
-    </>),
+    title: "Single Day Crown",
+    // subtitle: (<>
+    //   <span className="line-through mr-2 font-bold">$1600</span>
+    //   <span className="font-bold">now only $999</span>
+    // </>),
     bg: "bg-primary",
     Icon: ShieldIcon,
   },
   {
-    title: "$149 Exam & X-Rays + Scale & Polish",
+    title: "Exam & X-Rays + Scale & Polish",
     subtitle: "LIMITED TIME SPECIAL",
     bg: "bg-secondary",
     Icon: SparkleIcon,
