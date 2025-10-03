@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Leads Capture | Northcote Family Dentist",
+  title: "New Patient Registration | Northcote Family Dentist",
   description: "Register your interest and share your details via our secure Airtable form.",
 }
 
