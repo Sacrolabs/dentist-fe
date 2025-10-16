@@ -5,7 +5,7 @@ export const sanityReadClient = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Disable CDN for fresh data
+  useCdn: true, // Enable CDN for better performance on Amplify
   token: process.env.SANITY_API_TOKEN || process.env.SANITY_API_READ_TOKEN, // Required for private datasets
 })
 

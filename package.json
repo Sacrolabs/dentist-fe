@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:services": "tsx scripts/seed-sanity.ts",
+    "seed:team": "tsx scripts/seed-team.ts",
+    "seed:emergency": "tsx scripts/seed-emergency.ts",
+    "seed:hero": "tsx scripts/seed-hero-settings.ts",
+    "seed:all": "npm run seed:services && npm run seed:team && npm run seed:emergency && npm run seed:hero"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
