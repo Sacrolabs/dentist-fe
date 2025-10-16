@@ -8,9 +8,9 @@ import { servicesQuery, serviceByIdQuery } from "@/lib/sanity.queries"
 import { Button } from "@/components/ui/button"
 
 interface ServicePageProps {
-  params: {
+  params: Promise<{
     serviceId: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -19,7 +19,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
-  const service = await sanityReadClient.fetch(serviceByIdQuery, { serviceId: params.serviceId })
+  const { serviceId } = await params
+  const service = await sanityReadClient.fetch(serviceByIdQuery, { serviceId })
   if (!service) {
     return {
       title: "Service | Northcote Family Dentist",
@@ -32,7 +33,8 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {
-  const service = await sanityReadClient.fetch(serviceByIdQuery, { serviceId: params.serviceId })
+  const { serviceId } = await params
+  const service = await sanityReadClient.fetch(serviceByIdQuery, { serviceId })
 
   if (!service) {
     return (
