@@ -184,8 +184,8 @@ export default function ContactForm() {
                 <div>
                   <h3 className="font-semibold text-secondary mb-1">Call Us</h3>
                   <p className="text-gray-600">
-                    <a href="tel:094492006" className="hover:text-primary transition-colors">
-                      (09) 449 2006
+                    <a href="tel:+64273000004" className="hover:text-primary transition-colors">
+                      +64 27 300 0004
                     </a>
                   </p>
                 </div>
@@ -220,15 +220,18 @@ export default function ContactForm() {
               </div>
             </div>
 
-            {/* Interactive Map Placeholder */}
+            {/* Interactive Map */}
             <div className="bg-gray-200 aspect-video rounded-lg overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center bg-gray-300 relative">
-                <div className="text-center">
-                  <MapPin className="h-12 w-12 text-gray-500 mx-auto mb-2" />
-                  <p className="text-gray-600 font-semibold">Northcote, Auckland</p>
-                  <p className="text-gray-500 text-sm">Interactive Map Coming Soon</p>
-                </div>
-              </div>
+              <iframe
+                src="https://www.google.com/maps?q=46c+Lake+Road+Northcote+Auckland+0627+New+Zealand&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Northcote Family Dentist Location"
+              />
             </div>
           </div>
         </div>

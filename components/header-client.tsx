@@ -5,10 +5,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Phone, CalendarPlus, ChevronDown } from "lucide-react"
-import { services } from "@/lib/services-data"
 import { cn } from "@/lib/utils"
 
-export default function Header() {
+type Service = {
+  serviceId: string
+  title: string
+}
+
+export default function HeaderClient({ services }: { services: Service[] }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
@@ -46,8 +50,8 @@ export default function Header() {
             <div className="absolute left-0 top-full mt-2 w-56 bg-white shadow-lg rounded-md py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               {services.map((service) => (
                 <Link
-                  key={service.id}
-                  href={`/services/${service.id}`}
+                  key={service.serviceId}
+                  href={`/services/${service.serviceId}`}
                   className="block px-4 py-2 text-sm text-secondary hover:bg-gray-100 hover:text-primary"
                 >
                   {service.title}
@@ -89,6 +93,15 @@ export default function Header() {
             Testimonials
           </Link>
           <Link
+            href="/emergency"
+            className={cn(
+              "text-sm font-medium hover:text-primary transition-colors",
+              "text-secondary",
+            )}
+          >
+            Emergency
+          </Link>
+          <Link
             href="/contact"
             className={cn(
               "text-sm font-medium hover:text-primary transition-colors",
@@ -102,14 +115,14 @@ export default function Header() {
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
           <a
-            href="tel:094492006"
+            href="tel:+64273000004"
             className={cn(
               "hidden sm:flex items-center gap-2 text-sm font-medium transition-colors",
               "text-secondary",
             )}
           >
             <Phone size={16} />
-            <span>Call Today: (09) 449 2006</span>
+            <span>Call Today: +64 27 300 0004</span>
           </a>
           <Button asChild size="sm" className="btn-primary btn-texture hero-cta hidden md:flex">
             <Link
@@ -152,9 +165,9 @@ export default function Header() {
               </summary>
               <ul className="pl-4 mt-2 space-y-1">
                 {services.map((service) => (
-                  <li key={service.id}>
+                  <li key={service.serviceId}>
                     <Link
-                      href={`/services/${service.id}`}
+                      href={`/services/${service.serviceId}`}
                       className="text-sm text-secondary hover:text-primary"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -186,6 +199,13 @@ export default function Header() {
               Testimonials
             </Link>
             <Link
+              href="/emergency"
+              className="py-2 text-secondary hover:text-primary"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Emergency
+            </Link>
+            <Link
               href="/contact"
               className="py-2 text-secondary hover:text-primary"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -193,12 +213,12 @@ export default function Header() {
               Contact
             </Link>
             <a
-              href="tel:094492006"
+              href="tel:+64273000004"
               className="py-2 text-primary flex items-center gap-2"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <Phone size={16} />
-              Call Today: (09) 449 2006
+              Call Today: +64 27 300 0004
             </a>
             <Button asChild size="sm" className="btn-primary btn-texture hero-cta">
             <Link

@@ -3,7 +3,8 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { ArrowLeft } from "lucide-react"
 
-import { services, Service } from "@/lib/services-data"
+import { sanityReadClient } from "@/lib/sanity.client"
+import { servicesQuery, serviceByIdQuery } from "@/lib/sanity.queries"
 import { Button } from "@/components/ui/button"
 
 interface ServicePageProps {
@@ -13,11 +14,12 @@ interface ServicePageProps {
 }
 
 export async function generateStaticParams() {
-  return services.map((s) => ({ serviceId: s.id }))
+  const services = await sanityReadClient.fetch(servicesQuery)
+  return services.map((s: any) => ({ serviceId: s.serviceId }))
 }
 
-export function generateMetadata({ params }: ServicePageProps): Metadata {
-  const service = services.find((s) => s.id === params.serviceId)
+export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
+  const service = await sanityReadClient.fetch(serviceByIdQuery, { serviceId: params.serviceId })
   if (!service) {
     return {
       title: "Service | Northcote Family Dentist",
@@ -29,8 +31,8 @@ export function generateMetadata({ params }: ServicePageProps): Metadata {
   }
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
-  const service = services.find((s) => s.id === params.serviceId)
+export default async function ServicePage({ params }: ServicePageProps) {
+  const service = await sanityReadClient.fetch(serviceByIdQuery, { serviceId: params.serviceId })
 
   if (!service) {
     return (
@@ -65,15 +67,17 @@ export default function ServicePage({ params }: ServicePageProps) {
           </div>
 
           {/* Image */}
-          <div className="relative w-full md:w-1/2 md:max-w-md mb-6 md:mb-0 rounded-xl overflow-hidden shadow-md flex justify-center items-center min-h-[120px]">
-            <Image
-              src={service.image}
-              alt={service.title}
-              width={420}
-              height={360}
-              className="w-full max-h-[220px] object-cover rounded-xl"
-            />
-          </div>
+          {service.imageUrl && (
+            <div className="relative w-full md:w-1/2 md:max-w-md mb-6 md:mb-0 rounded-xl overflow-hidden shadow-md flex justify-center items-center min-h-[120px]">
+              <Image
+                src={service.imageUrl}
+                alt={service.title}
+                width={420}
+                height={360}
+                className="w-full max-h-[220px] object-cover rounded-xl"
+              />
+            </div>
+          )}
         </div>
 
         {/* Details & Benefits Sections - Parallel Flex on Desktop */}

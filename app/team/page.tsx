@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import TeamHero from "@/components/team-hero"
-import TeamGrid from "@/components/team-grid"
+import TeamGrid from "@/components/team-grid-sanity"
 
 export const metadata: Metadata = {
   title: "Meet Our Dental Family | Northcote Family Dentist",

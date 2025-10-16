@@ -22,8 +22,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-white flex-shrink-0" />
-                <a href="tel:094492006" className="footer-link hover:text-white transition-colors">
-                  (09) 449 2006
+                <a href="tel:+64273000004" className="footer-link hover:text-white transition-colors">
+                  +64 27 300 0004
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -134,10 +134,17 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4 text-white">Find Us</h3>
             <div className="bg-gray-700 aspect-video w-full max-w-md rounded-lg overflow-hidden mb-4">
-              {/* Map placeholder */}
-              <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                <MapPin className="h-8 w-8 text-gray-400" />
-              </div>
+              {/* Google Maps Embed */}
+              <iframe
+                src="https://www.google.com/maps?q=46c+Lake+Road+Northcote+Auckland+0627+New+Zealand&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Northcote Family Dentist Location"
+              />
             </div>
             <div className="flex items-center gap-4 mt-4">
               <Link

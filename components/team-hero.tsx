@@ -9,7 +9,7 @@ export default function TeamHero() {
           src="/images/team/team-group.jpg"
           alt="Professional dental team working together in modern clinic environment"
           fill
-          className="object-cover opacity-20"
+          className="object-cover object-[50%_22%] opacity-20"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-secondary/20"></div>
       </div>

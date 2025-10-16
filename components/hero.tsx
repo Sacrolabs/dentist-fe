@@ -122,7 +122,7 @@ export default function Hero() {
               </Button>
 
               <Button asChild variant="outline" size="lg">
-                <a href="tel:094492006" className="flex items-center gap-2">
+                <a href="tel:+64273000004" className="flex items-center gap-2">
                   <Phone size={18} />
                   Call Today
                 </a>

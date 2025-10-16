@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import ContactHero from "@/components/contact-hero"
 import ContactForm from "@/components/contact-form"
-import EmergencyHotline from "@/components/emergency-hotline"
-import EmergencyContact from "@/components/emergency-contact"
 
 export const metadata: Metadata = {
   title: "Contact Us | Northcote Family Dentist",
@@ -15,8 +13,6 @@ export default function ContactPage() {
     <main className="pt-16">
       <ContactHero />
       <ContactForm />
-      <EmergencyHotline />
-      <EmergencyContact />
     </main>
   )
 }

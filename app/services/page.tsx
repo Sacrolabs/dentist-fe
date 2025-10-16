@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import ServiceList from "@/components/service-list"
+import ServiceList from "@/components/service-list-server"
 import ServicesBanner from "@/components/services-banner"
 
 export const metadata: Metadata = {

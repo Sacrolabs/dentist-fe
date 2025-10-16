@@ -1,7 +1,10 @@
 import { Star } from "lucide-react"
 import Image from "next/image"
+import { getTotalReviewsCount } from "./testimonials-grid-server"
 
-export default function TestimonialsHero() {
+export default async function TestimonialsHero() {
+  const totalReviews = await getTotalReviewsCount()
+
   return (
     <section className="relative w-full h-72 md:h-96 flex items-center justify-center bg-secondary overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -24,7 +27,11 @@ export default function TestimonialsHero() {
             <Star key={star} className="h-6 w-6 fill-primary text-primary" />
           ))}
         </div>
-        <p className="text-gray-200 max-w-3xl mx-auto text-lg">Over 175 five-star reviews from our happy patients</p>
+        <p className="text-gray-200 max-w-3xl mx-auto text-lg">
+          {totalReviews > 0
+            ? `Over ${totalReviews} five-star reviews from our happy patients`
+            : 'Read what our patients say about their experience'}
+        </p>
       </div>
     </section>
   )

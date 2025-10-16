@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import TestimonialsHero from "@/components/testimonials-hero"
-import TestimonialsGrid from "@/components/testimonials-grid"
+import TestimonialsGrid from "@/components/testimonials-grid-server"
 // import VideoTestimonials from "@/components/video-testimonials"
 import ShareExperience from "@/components/share-experience"
 
