@@ -13,6 +13,9 @@ interface ServicePageProps {
   }>
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export async function generateStaticParams() {
   const services = await sanityReadClient.fetch(servicesQuery)
   return services.map((s: any) => ({ serviceId: s.serviceId }))

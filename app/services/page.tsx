@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: "Comprehensive dental care services offered by Northcote Family Dentist",
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export default function ServicesPage() {
   return (
     <main className="pt-16">

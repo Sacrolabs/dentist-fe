@@ -20,9 +20,16 @@ type ReviewsResponse = {
 
 async function fetchGoogleReviews(): Promise<ReviewsResponse> {
   try {
-    // Use absolute URL in production, relative in development
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
-    const response = await fetch(`${baseUrl}/api/google-reviews`, {
+    // For server-side fetches, use relative URL or construct from headers
+    // This works both locally and on Amplify without needing NEXT_PUBLIC_SITE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : typeof window === 'undefined'
+        ? 'http://localhost:3000' // Server-side default for local dev
+        : '' // Client-side can use relative URL
+
+    const apiUrl = baseUrl ? `${baseUrl}/api/google-reviews` : '/api/google-reviews'
+    const response = await fetch(apiUrl, {
       next: { revalidate: 43200 }, // 12-hour cache
     })
 
