@@ -1,10 +1,11 @@
 import { Star } from "lucide-react"
 import Image from "next/image"
-import { getTotalReviewsCount } from "./testimonials-grid-server"
 
-export default async function TestimonialsHero() {
-  const totalReviews = await getTotalReviewsCount()
+type TestimonialsHeroProps = {
+  totalReviews?: number
+}
 
+export default function TestimonialsHero({ totalReviews = 0 }: TestimonialsHeroProps) {
   return (
     <section className="relative w-full h-72 md:h-96 flex items-center justify-center bg-secondary overflow-hidden">
       <div className="absolute inset-0 z-0">

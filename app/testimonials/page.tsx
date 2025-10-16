@@ -1,8 +1,5 @@
 import type { Metadata } from "next"
-import TestimonialsHero from "@/components/testimonials-hero"
-import TestimonialsGrid from "@/components/testimonials-grid-server"
-// import VideoTestimonials from "@/components/video-testimonials"
-import ShareExperience from "@/components/share-experience"
+import TestimonialsContent from "@/components/testimonials-content"
 
 export const metadata: Metadata = {
   title: "Patient Testimonials | Northcote Family Dentist",
@@ -10,12 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function TestimonialsPage() {
-  return (
-    <main className="pt-16">
-      <TestimonialsHero />
-      <TestimonialsGrid />
-      {/* <VideoTestimonials /> */}
-      <ShareExperience />
-    </main>
-  )
+  return <TestimonialsContent />
 }
