@@ -6,6 +6,7 @@ frontend:
         - npm ci
     build:
       commands:
+        - env | grep -e SERPAPI_API_KEY -e GOOGLE_PLACE_ID -e NEXT_PUBLIC_ || true
         - npm run build
   artifacts:
     baseDirectory: .next

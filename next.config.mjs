@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Required for AWS Amplify deployment with Next.js 15
-  output: 'standalone',
-
   eslint: {
     ignoreDuringBuilds: true,
   },
