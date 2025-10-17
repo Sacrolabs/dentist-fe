@@ -11,10 +11,13 @@
     "seed:team": "tsx scripts/seed-team.ts",
     "seed:emergency": "tsx scripts/seed-emergency.ts",
     "seed:hero": "tsx scripts/seed-hero-settings.ts",
-    "seed:all": "npm run seed:services && npm run seed:team && npm run seed:emergency && npm run seed:hero"
+    "seed:about": "tsx scripts/seed-about-us.ts",
+    "seed:all": "npm run seed:services && npm run seed:team && npm run seed:emergency && npm run seed:hero && npm run seed:about",
+    "test:email": "tsx scripts/test-email.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@portabletext/react": "^4.0.3",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",

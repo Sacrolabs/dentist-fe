@@ -90,3 +90,16 @@ export const emergencyQuery = groq`*[_type == "emergency"][0] {
   bannerTitle,
   bannerDescription
 }`
+
+export const aboutUsQuery = groq`*[_type == "aboutUs"][0] {
+  _id,
+  pageTitle,
+  sections[]{
+    sectionTitle,
+    content
+  },
+  promiseItems,
+  ctaText,
+  ctaButtonText,
+  ctaButtonUrl
+}`

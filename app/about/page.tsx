@@ -1,23 +1,15 @@
 import type { Metadata } from "next"
-import AboutHero from "@/components/about-hero"
-import OurStory from "@/components/our-story"
-import CommunityCommitment from "@/components/community-commitment"
-import OfficeGallery from "@/components/office-gallery"
-import AboutTimeline from "@/components/about-timeline"
+import AboutContentSanity from "@/components/about-content-sanity"
 
 export const metadata: Metadata = {
   title: "About Us | Northcote Family Dentist",
-  description: "Learn about our story, commitment to the community, and our modern dental facility",
+  description: "Learn about our story, philosophy, and commitment to providing exceptional dental care to the Northcote and Northshore community",
 }
 
 export default function AboutPage() {
   return (
     <main className="pt-16">
-      <AboutHero />
-      <OurStory />
-      <AboutTimeline />
-      <CommunityCommitment />
-      <OfficeGallery />
+      <AboutContentSanity />
     </main>
   )
 }
