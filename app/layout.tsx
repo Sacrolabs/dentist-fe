@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Header from "@/components/header-server"
 import Footer from "@/components/footer"
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light">
           <Header />
           {children}
+          <SpeedInsights />
           <Footer />
         </ThemeProvider>
       </body>
