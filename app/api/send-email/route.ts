@@ -1,17 +1,51 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { validateEmail, validatePhone, validateName, validateMessage, sanitizeInput } from '@/lib/validation';
+import { validateSubmission, getClientIP } from '@/lib/bot-protection';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, phone, service, message } = await request.json();
+    const { name, email, phone, service, message, honeypot, startTime } = await request.json();
 
-    // Validate required fields
-    if (!name || !email) {
+    // Get client IP for rate limiting
+    const clientIP = getClientIP(request);
+
+    // Bot protection checks
+    const botCheck = validateSubmission(honeypot, startTime, clientIP);
+    if (botCheck.isBot) {
+      console.warn(`🤖 Bot detected: ${botCheck.details} - IP: ${clientIP}`);
       return NextResponse.json(
-        { message: 'Name and email are required' },
+        { message: botCheck.error || 'Submission failed. Please try again.' },
+        { status: 429 }
+      );
+    }
+
+    // Server-side validation
+    const nameValidation = validateName(name);
+    const emailValidation = validateEmail(email);
+    const phoneValidation = phone?.trim() ? validatePhone(phone) : { isValid: true };
+    const messageValidation = message?.trim() ? validateMessage(message, 0) : { isValid: true };
+
+    // Collect validation errors
+    const errors: string[] = [];
+    if (!nameValidation.isValid) errors.push(nameValidation.error || 'Invalid name');
+    if (!emailValidation.isValid) errors.push(emailValidation.error || 'Invalid email');
+    if (!phoneValidation.isValid) errors.push(phoneValidation.error || 'Invalid phone');
+    if (!messageValidation.isValid) errors.push(messageValidation.error || 'Invalid message');
+
+    if (errors.length > 0) {
+      return NextResponse.json(
+        { message: 'Validation failed', errors },
         { status: 400 }
       );
     }
+
+    // Sanitize inputs to prevent XSS
+    const sanitizedName = sanitizeInput(name);
+    const sanitizedEmail = sanitizeInput(email);
+    const sanitizedPhone = phone ? sanitizeInput(phone) : '';
+    const sanitizedService = service ? sanitizeInput(service) : '';
+    const sanitizedMessage = message ? sanitizeInput(message) : '';
 
     // Check if SMTP is configured
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
@@ -23,12 +57,12 @@ export async function POST(request: Request) {
     }
 
     // Determine email type
-    const isBookingRequest = message?.includes('Appointment request') || service;
+    const isBookingRequest = sanitizedMessage?.includes('Appointment request') || sanitizedService;
     const emailSubject = isBookingRequest
-      ? `🦷 New Appointment Request - ${service || 'General'}`
+      ? `🦷 New Appointment Request - ${sanitizedService || 'General'}`
       : '📧 New Contact Form Submission';
 
-    // Create HTML email template
+    // Create HTML email template with sanitized data
     const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -53,28 +87,28 @@ export async function POST(request: Request) {
     <div class="content">
       <div class="field">
         <div class="label">👤 Name:</div>
-        <div class="value">${name}</div>
+        <div class="value">${sanitizedName}</div>
       </div>
       <div class="field">
         <div class="label">📧 Email:</div>
-        <div class="value"><a href="mailto:${email}">${email}</a></div>
+        <div class="value"><a href="mailto:${sanitizedEmail}">${sanitizedEmail}</a></div>
       </div>
-      ${phone ? `
+      ${sanitizedPhone ? `
       <div class="field">
         <div class="label">📱 Phone:</div>
-        <div class="value"><a href="tel:${phone}">${phone}</a></div>
+        <div class="value"><a href="tel:${sanitizedPhone}">${sanitizedPhone}</a></div>
       </div>
       ` : ''}
-      ${service ? `
+      ${sanitizedService ? `
       <div class="field">
         <div class="label">🦷 Service Requested:</div>
-        <div class="value">${service}</div>
+        <div class="value">${sanitizedService}</div>
       </div>
       ` : ''}
-      ${message ? `
+      ${sanitizedMessage ? `
       <div class="field">
         <div class="label">💬 Message:</div>
-        <div class="value">${message.replace(/\n/g, '<br>')}</div>
+        <div class="value">${sanitizedMessage.replace(/\n/g, '<br>')}</div>
       </div>
       ` : ''}
       <div class="field" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #ddd;">
@@ -94,17 +128,17 @@ export async function POST(request: Request) {
 </body>
 </html>`;
 
-    // Create plain text version
+    // Create plain text version with sanitized data
     const textContent = `
 ${isBookingRequest ? 'NEW APPOINTMENT REQUEST' : 'NEW CONTACT FORM SUBMISSION'}
 Northcote Family Dentist
 ────────────────────────────────
 
-👤 Name: ${name}
-📧 Email: ${email}
-${phone ? `📱 Phone: ${phone}` : ''}
-${service ? `🦷 Service: ${service}` : ''}
-${message ? `💬 Message:\n${message}` : ''}
+👤 Name: ${sanitizedName}
+📧 Email: ${sanitizedEmail}
+${sanitizedPhone ? `📱 Phone: ${sanitizedPhone}` : ''}
+${sanitizedService ? `🦷 Service: ${sanitizedService}` : ''}
+${sanitizedMessage ? `💬 Message:\n${sanitizedMessage}` : ''}
 
 📅 Received: ${new Date().toLocaleString('en-NZ', {
   timeZone: 'Pacific/Auckland',
@@ -119,7 +153,7 @@ This email was sent from the website contact form.
     const mailOptions = {
       from: `"Northcote Family Dentist Website" <${process.env.SMTP_FROM_EMAIL}>`,
       to: process.env.CONTACT_RECIPIENT_EMAIL,
-      replyTo: email,
+      replyTo: sanitizedEmail,
       subject: emailSubject,
       text: textContent,
       html: htmlContent,

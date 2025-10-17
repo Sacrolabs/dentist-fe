@@ -17,6 +17,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { BOOK_APPOINTMENT_URL } from "@/lib/utils";
+import { validateEmail, validatePhone, validateName } from "@/lib/validation";
+import { honeypotFieldProps } from "@/lib/bot-protection";
 
 export default function Hero() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,9 +27,74 @@ export default function Hero() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [startTime] = useState(() => Date.now());
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+  }>({});
+  const [touched, setTouched] = useState<{
+    name?: boolean;
+    email?: boolean;
+    phone?: boolean;
+  }>({});
+
+  // Validation handlers
+  const handleNameBlur = () => {
+    setTouched({ ...touched, name: true });
+    const result = validateName(name);
+    setErrors({ ...errors, name: result.error });
+  };
+
+  const handleEmailBlur = () => {
+    setTouched({ ...touched, email: true });
+    const result = validateEmail(email);
+    setErrors({ ...errors, email: result.error });
+  };
+
+  const handlePhoneBlur = () => {
+    if (phone.trim()) {
+      setTouched({ ...touched, phone: true });
+      const result = validatePhone(phone);
+      setErrors({ ...errors, phone: result.error });
+    } else {
+      setErrors({ ...errors, phone: undefined });
+    }
+  };
+
+  // Check if form has any validation errors
+  const hasErrors = () => {
+    const nameValidation = validateName(name);
+    const emailValidation = validateEmail(email);
+    const phoneValidation = phone.trim() ? validatePhone(phone) : { isValid: true };
+
+    return !nameValidation.isValid || !emailValidation.isValid || !phoneValidation.isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Run all validations before submitting
+    const nameValidation = validateName(name);
+    const emailValidation = validateEmail(email);
+    const phoneValidation = phone.trim() ? validatePhone(phone) : { isValid: true };
+
+    // Update errors state
+    setErrors({
+      name: nameValidation.error,
+      email: emailValidation.error,
+      phone: phoneValidation.error,
+    });
+
+    // Mark all fields as touched
+    setTouched({ name: true, email: true, phone: true });
+
+    // Stop if there are validation errors
+    if (!nameValidation.isValid || !emailValidation.isValid || !phoneValidation.isValid) {
+      return;
+    }
+
     setIsSubmitting(true);
     setIsSubmitted(false);
 
@@ -41,6 +108,8 @@ export default function Hero() {
           phone,
           service,
           message: `Appointment request for ${service} service`,
+          honeypot,
+          startTime,
         }),
       });
 
@@ -56,6 +125,9 @@ export default function Hero() {
       setEmail("");
       setPhone("");
       setService("");
+      setHoneypot("");
+      setErrors({});
+      setTouched({});
 
       // Hide success message after 5 seconds
       setTimeout(() => {
@@ -162,6 +234,13 @@ export default function Hero() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot field - hidden from users, visible to bots */}
+                <input
+                  {...honeypotFieldProps}
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+
                 <div className="space-y-2">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-secondary">
@@ -173,9 +252,15 @@ export default function Hero() {
                       placeholder="Your name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      onBlur={handleNameBlur}
                       required
-                      className="form-input border-gray-300 text-secondary"
+                      className={`form-input border-gray-300 text-secondary ${
+                        touched.name && errors.name ? "border-red-500" : ""
+                      }`}
                     />
+                    {touched.name && errors.name && (
+                      <p className="text-xs text-red-600">{errors.name}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -188,9 +273,15 @@ export default function Hero() {
                       placeholder="your.email@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      onBlur={handleEmailBlur}
                       required
-                      className="form-input border-gray-300 text-secondary"
+                      className={`form-input border-gray-300 text-secondary ${
+                        touched.email && errors.email ? "border-red-500" : ""
+                      }`}
                     />
+                    {touched.email && errors.email && (
+                      <p className="text-xs text-red-600">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
@@ -201,12 +292,18 @@ export default function Hero() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="Your phone number"
+                    placeholder="+64 27 300 0004"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    onBlur={handlePhoneBlur}
                     required
-                    className="form-input border-gray-300 text-secondary"
+                    className={`form-input border-gray-300 text-secondary ${
+                      touched.phone && errors.phone ? "border-red-500" : ""
+                    }`}
                   />
+                  {touched.phone && errors.phone && (
+                    <p className="text-xs text-red-600">{errors.phone}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -251,7 +348,7 @@ export default function Hero() {
                 <Button
                   type="submit"
                   className="w-full hero-cta bg-primary hover:bg-primary/90 btn-texture text-white"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || hasErrors()}
                 >
                   {isSubmitting ? "Submitting..." : "Request Appointment"}
                 </Button>
