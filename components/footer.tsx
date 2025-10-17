@@ -32,7 +32,7 @@ export default function Footer() {
                   href="mailto:info@northcotefamilydentist.co.nz"
                   className="footer-link hover:text-white transition-colors"
                 >
-                  info@northcotefamilydentist.co.nz
+                 northcotefamilydentist@gmail.com
                 </Link>
               </li>
               <li className="flex items-start gap-3">
@@ -175,11 +175,9 @@ export default function Footer() {
               &copy; {CURRENT_YEAR_UTC} Northcote Family Dentist. All rights reserved.
             </p>
             <div className="flex gap-4 text-sm text-gray-200">
-              <Link href="/privacy" className="footer-link hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="footer-link hover:text-white transition-colors">
-                Terms of Service
+              Website by
+              <Link target="_blank" href="https://www.blazecode.io" className="footer-link hover:text-white transition-colors">
+              Blazecode Technologies Limited
               </Link>
             </div>
           </div>
