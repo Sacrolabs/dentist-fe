@@ -341,6 +341,9 @@ export default function Hero() {
                       <SelectItem value="Dental Emergency">
                         Dental Emergency
                       </SelectItem>
+                      <SelectItem value="Others">
+                        Others
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
